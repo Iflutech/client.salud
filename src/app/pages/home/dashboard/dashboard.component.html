@@ -1,36 +1,52 @@
 <div style="display: flex; justify-content: space-between; align-items: center;">
   <h2 class="h2 title">Dashboard</h2>
+  <button nz-button [nzType]="'primary'" (click)="obtenerDatos()">Refrescar</button>
 </div>
 <div class="stats-container">
   <nz-spin [nzSpinning]="isLoadingGeneralStadistics">
     <article class="stats-content stats-warning">
       <p class="stats-title">Cant. No Aptos por Día</p>
-      <p class="stats-subtitle">{{ estadisticasGenerales.quantityDayNoApproved }} trabajadores</p>
+      <div class="stats-content-data">
+        <p class="stats-subtitle">
+          {{ estadisticasGenerales.quantityDayNoApproved }} trabajadores
+        </p>
+        <span nz-icon nzType="search" nzTheme="outline" (click)="showModal(1)"></span>
+      </div>
     </article>
   </nz-spin>
   <nz-spin [nzSpinning]="isLoadingGeneralStadistics">
     <article class="stats-content stats-warning">
       <p class="stats-title">Cant. No Aptos por Semana</p>
-      <p class="stats-subtitle">{{ estadisticasGenerales.quantityWeekNoApproved }} trabajadores</p>
+      <div class="stats-content-data">
+        <p class="stats-subtitle">
+          {{ estadisticasGenerales.quantityWeekNoApproved }} trabajadores
+        </p>
+        <span nz-icon nzType="search" nzTheme="outline" (click)="showModal(2)"></span>
+      </div>
     </article>
   </nz-spin>
   <nz-spin [nzSpinning]="isLoadingGeneralStadistics">
     <article class="stats-content stats-warning">
       <p class="stats-title">Cant. No Aptos por Mes</p>
-      <p class="stats-subtitle">{{ estadisticasGenerales.quantityMonthNoApproved }} trabajadores</p>
+      <div class="stats-content-data">
+        <p class="stats-subtitle">
+          {{ estadisticasGenerales.quantityMonthNoApproved }} trabajadores
+        </p>
+        <span nz-icon nzType="search" nzTheme="outline" (click)="showModal(3)"></span>
+      </div>
     </article>
   </nz-spin>
 </div>
 <div nz-row [nzGutter]="[24, 24]" style="padding: 12px 8px 12px;">
   <div nz-col nzXs="24" nzSm="24" nzMd="24" nzLg="12" nzXl="12">
     <div class="chart-content">
-      <p class="chart-title">Cant. conductores habilitados por operación</p>
+      <p class="chart-title">Cant. conductores habilitados por operación por mes</p>
       <canvas id="DayNoApproved" >{{ graphicApprovedByOrd }}</canvas>
     </div>
   </div>
   <div nz-col nzXs="24" nzSm="24" nzMd="24" nzLg="12" nzXl="12">
     <div class="chart-content">
-      <p class="chart-title">Observación más frecuente o repetiva</p>
+      <p class="chart-title">Observación más frecuente o repetiva por mes</p>
       <canvas id="FreqObservation" >{{ graphicmoreFreqObservation }}</canvas>
     </div>
   </div>
@@ -40,7 +56,7 @@
     <div class="stats-no-available-content">
       <p class="stats-no-available-title">Cant. de veces no apto por conductor por mes</p>
       @if (isLoadingNoAvailable) {
-        <nz-spin [nzSpinning]="isLoadingNoAvailable" style="height: 100%;"></nz-spin>
+        <nz-spin [nzSpinning]="isLoadingNoAvailable" style="height: 100%; min-height: 250px;"></nz-spin>
       } @else {
         <div [ngClass]="workersFrequency.length == 0 ? 'stats-no-available-list list-emtpy' : 'stats-no-available-list'">
           @for(item of workersFrequency; track item) {
@@ -49,9 +65,12 @@
                 <p class="stats-no-available-name">{{ item.name }}</p>
                 <p class="stats-no-available-operation">{{ item.operation }}</p>
               </div>
-              <p class="stats-no-available-dias">
-                {{ item.quantity }} veces no apto
-              </p>
+              <div class="stats-no-available-options">
+                <p class="stats-no-available-quantity">
+                  {{ item.quantity }} veces no apto
+                </p>
+                <span class="stats-no-available-data-option" nz-icon nzType="ellipsis" nzTheme="outline"></span>
+              </div>
             </div>
           } @empty { 
             <nz-empty></nz-empty>
@@ -61,3 +80,51 @@
     </div>
   </div>
 </div>
+
+<nz-modal [(nzVisible)]="isVisibleModalDay" nzTitle="Cant. No Aptos por Día" [nzCancelText]="null" [nzClosable]="false" nzOkText="Cerrar" (nzOnOk)="handleClose(1)">
+  <ng-container *nzModalContent>
+    <div class="modal-container-stadistics">
+      @for(item of modalDaysData; track item) {
+        <div class="modal-content-row">
+          <p class="modal-content-row-name">{{ item.name }}</p>
+          <p class="modal-content-row-operation">{{ item.operation }}</p>
+          <p class="modal-content-row-date">{{ item.date }}</p>
+        </div>
+      } @empty { 
+        <nz-empty></nz-empty>
+      }
+    </div>
+  </ng-container>
+</nz-modal>
+
+<nz-modal [(nzVisible)]="isVisibleModalMonth" nzTitle="Cant. No Aptos por Semana" [nzCancelText]="null" [nzClosable]="false" nzOkText="Cerrar" (nzOnOk)="handleClose(2)">
+  <ng-container *nzModalContent>
+    <div class="modal-container-stadistics">
+      @for(item of modalWeekData; track item) {
+        <div class="modal-content-row">
+          <p class="modal-content-row-name">{{ item.name }}</p>
+          <p class="modal-content-row-operation">{{ item.operation }}</p>
+          <p class="modal-content-row-date">{{ item.date }}</p>
+        </div>
+      } @empty { 
+        <nz-empty></nz-empty>
+      }
+    </div>
+  </ng-container>
+</nz-modal>
+
+<nz-modal [(nzVisible)]="isVisibleModalYear" nzTitle="Cant. No Aptos por Mes" [nzCancelText]="null" [nzClosable]="false" nzOkText="Cerrar" (nzOnOk)="handleClose(3)">
+  <ng-container *nzModalContent>
+    <div class="modal-container-stadistics">
+      @for(item of modalMonthData; track item) {
+        <div class="modal-content-row">
+          <p class="modal-content-row-name">{{ item.name }}</p>
+          <p class="modal-content-row-operation">{{ item.operation }}</p>
+          <p class="modal-content-row-date">{{ item.date }}</p>
+        </div>
+      } @empty { 
+        <nz-empty></nz-empty>
+      }
+    </div>
+  </ng-container>
+</nz-modal>

@@ -52,6 +52,16 @@
   font-size: 14px;
 }
 
+.stats-content-data {
+  display: flex;
+  gap: 5px;
+}
+
+.stats-content-data span {
+  padding-top: 2px;
+  cursor: pointer;
+}
+
 .stats-subtitle {
   font-size: 16px;
   font-weight: 500;
@@ -90,7 +100,9 @@
 }
 
 .stats-no-available-list {
-  height: 250px;
+  min-height: 250px;
+  max-height: 250px;
+  height: 100%;
   overflow-x: auto;
   flex-grow: 1;
   padding: 0px 15px;
@@ -137,11 +149,54 @@
   min-width: 250px;
 }
 
-.stats-no-available-dias {
+.stats-no-available-quantity {
   text-align: end;
 }
 
 .stats-no-available-content-data p,
-.stats-no-available-dias p {
+.stats-no-available-quantity p {
   margin: 0px;
+}
+
+.stats-no-available-options {
+  display: flex;
+  gap: 20px
+}
+
+.stats-no-available-data-option {
+  cursor: pointer;
+}
+
+.modal-container-stadistics {
+  max-height: 108px; 
+  overflow-x: auto;
+}
+
+.modal-container-stadistics::-webkit-scrollbar {
+  width: 5px;
+  height: 8px;
+  background-color: #F3F5F9;
+  border: 1px solid #E4E8F1;
+}
+
+.modal-container-stadistics::-webkit-scrollbar-thumb {
+  background: #C7CBCF
+}
+
+.modal-content-row {
+  display: flex; 
+  justify-content: space-between;
+}
+
+.modal-content-row-name {
+  width: 200px;
+}
+
+.modal-content-row-operation {
+  width: 80px; 
+  text-align: end;
+}
+
+.modal-content-row-date {
+  padding-right: 10px;
 }

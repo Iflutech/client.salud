@@ -15,34 +15,49 @@ export class DashboardComponent implements OnInit {
   moreFreqObservation: any[]
   workersFrequency: any[]
 
+  modalDaysData: any[]
+  modalWeekData: any[]
+  modalMonthData: any[]
+
+  daysOfMonth: string[]
+
   graphicApprovedByOrd: any
   graphicmoreFreqObservation: any
 
   isLoadingGeneralStadistics: boolean
   isLoadingNoAvailable: boolean
+  isVisibleModalDay: boolean
+  isVisibleModalMonth: boolean
+  isVisibleModalYear: boolean
 
   constructor(
 
   ){
     this.estadisticasGenerales = {
-      quantityDayNoApproved: 4,
-      quantityWeekNoApproved: 2,
-      quantityMonthNoApproved: 1
+      quantityDayNoApproved: 1,
+      quantityWeekNoApproved: 3,
+      quantityMonthNoApproved: 7
     }
 
     this.driversApprovedByOrg = []
     this.moreFreqObservation = []
     this.workersFrequency = []
 
+    this.modalDaysData = []
+    this.modalWeekData = []
+    this.modalMonthData = []
+
+    this.daysOfMonth = []
+
     this.isLoadingGeneralStadistics = false
     this.isLoadingNoAvailable = false
+
+    this.isVisibleModalDay = false
+    this.isVisibleModalMonth = false
+    this.isVisibleModalYear = false
   }
 
   ngOnInit(): void {
-    let quellaveco = [12, 2, 0]
-    let hudbay = [9, 1, 2]
-    this.driversApprovedByOrg = [quellaveco, hudbay]
-    this.moreFreqObservation = [12, 20, 2]
     setTimeout(() => {
       this.crearGraficos()
     }, 500)
@@ -55,41 +70,151 @@ export class DashboardComponent implements OnInit {
     setTimeout(() => {
       this.isLoadingGeneralStadistics = false
       this.isLoadingNoAvailable = false
-      this.workersFrequency = [
+
+      let quellaveco = [19, 18, 19, 18, 18, 19, 17, 19]
+      let hudbay = [19, 20, 20, 20, 20, 20, 20, 19]
+      this.driversApprovedByOrg = [quellaveco, hudbay]
+      this.moreFreqObservation = [3, 1, 3]
+
+      this.getDaysUntilToday()
+
+      this.graphicApprovedByOrd.data.labels = []
+      this.graphicApprovedByOrd.data.datasets[0].data = []
+      this.graphicApprovedByOrd.data.datasets[1].data = []
+      this.graphicmoreFreqObservation.data.datasets[0].data = []
+
+      this.daysOfMonth.forEach((item: string) => {
+        this.graphicApprovedByOrd.data.labels.push(item)
+        this.graphicApprovedByOrd.update()
+      })
+
+      this.driversApprovedByOrg[0].forEach((item: any[]) => {
+        this.graphicApprovedByOrd.data.datasets[0].data.push(item)
+        this.graphicApprovedByOrd.update()
+      })
+      this.driversApprovedByOrg[1].forEach((item: any[]) => {
+        this.graphicApprovedByOrd.data.datasets[1].data.push(item)
+        this.graphicApprovedByOrd.update()
+      })
+      
+      //this.graphicApprovedByOrd.update()
+
+      this.moreFreqObservation.forEach((item: number) => {
+        this.graphicmoreFreqObservation.data.datasets.forEach((dataset: any) => {
+          dataset.data.push(item)
+        })
+        this.graphicmoreFreqObservation.update()
+      })
+
+      this.modalDaysData = [
+        {
+          name: 'Gustavo Ramirez Lopez',
+          operation: 'Hubday',
+          date: '08/04/2025'
+        }
+      ]
+      this.modalWeekData = [
+        {
+          name: 'Gustavo Ramirez Lopez',
+          operation: 'Hubday',
+          date: '08/04/2025'
+        },
         {
           name: 'Juan Gomez Valverde',
           operation: 'Quellaveco',
-          quantity: 4
+          date: '07/04/2025'
         },
         {
           name: 'Luis Valderrama de los Angeles',
           operation: 'Quellaveco',
-          quantity: 1
-        },
+          date: '07/04/2025'
+        }
+      ]
+      this.modalMonthData = [
         {
           name: 'Gustavo Ramirez Lopez',
           operation: 'Hubday',
-          quantity: 8
+          date: '08/04/2025'
+        },
+        {
+          name: 'Juan Gomez Valverde',
+          operation: 'Quellaveco',
+          date: '07/04/2025'
+        },
+        {
+          name: 'Luis Valderrama de los Angeles',
+          operation: 'Quellaveco',
+          date: '07/04/2025'
+        },
+        {
+          name: 'Juan Gomez Valverde',
+          operation: 'Quellaveco',
+          date: '05/04/2025'
         },
         {
           name: 'Rodolfo Reyes Contreras',
           operation: 'Quellaveco',
-          quantity: 12
+          date: '04/04/2025'
+        },
+        {
+          name: 'Luis Valderrama de los Angeles',
+          operation: 'Quellaveco',
+          date: '02/04/2025'
         },
         {
           name: 'Camilo Vargas Vargas',
           operation: 'Hubday',
-          quantity: 3
+          date: '01/04/2025'
+        },
+
+      ]
+      this.workersFrequency = [
+        {
+          name: 'Juan Gomez Valverde',
+          operation: 'Quellaveco',
+          quantity: 2
+        },
+        {
+          name: 'Luis Valderrama de los Angeles',
+          operation: 'Quellaveco',
+          quantity: 2
+        },
+        {
+          name: 'Gustavo Ramirez Lopez',
+          operation: 'Hubday',
+          quantity: 1
+        },
+        {
+          name: 'Rodolfo Reyes Contreras',
+          operation: 'Quellaveco',
+          quantity: 1
+        },
+        {
+          name: 'Camilo Vargas Vargas',
+          operation: 'Hubday',
+          quantity: 1
         }
       ]
     }, 1500)
+  }
+
+  getDaysUntilToday(date: Date = new Date()) {
+    const currentDay = date.getDate();
+    const days: string[] = [];
+  
+    for (let i = 1; i <= currentDay; i++) {
+      const dayString = i.toString().padStart(2, '0');
+      days.push(dayString);
+    }
+
+    this.daysOfMonth = days
   }
 
   crearGraficos(): void {
     this.graphicApprovedByOrd = new Chart("DayNoApproved", {
       type: 'line',
       data: {
-        labels: ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30'],
+        labels: this.daysOfMonth,
         datasets: [
           {
             label: 'Quellaveco',
@@ -114,6 +239,13 @@ export class DashboardComponent implements OnInit {
         scales: {
           y: {
             beginAtZero: true
+          },
+          x: {
+            display: true,
+            title: {
+              display: true,
+              text: 'Día del mes'
+            }
           }
         },
         plugins: {
@@ -148,6 +280,13 @@ export class DashboardComponent implements OnInit {
         scales: {
           y: {
             beginAtZero: true
+          },
+          x: {
+            display: true,
+            title: {
+              display: true,
+              text: 'Observación'
+            }
           }
         },
         plugins: {
@@ -160,5 +299,23 @@ export class DashboardComponent implements OnInit {
         }
       }
     })
+  }
+
+  showModal(type: number): void {
+    if (type == 1)
+      this.isVisibleModalDay = true;
+    else if (type == 2)
+      this.isVisibleModalMonth = true;
+    else 
+      this.isVisibleModalYear = true;
+  }
+
+  handleClose(type: number): void {
+    if (type == 1)
+      this.isVisibleModalDay = false;
+    else if (type == 2)
+      this.isVisibleModalMonth = false;
+    else 
+      this.isVisibleModalYear = false;
   }
 }

@@ -10,6 +10,7 @@ import { NzMessageModule } from 'ng-zorro-antd/message'
 import { NzSpinModule } from 'ng-zorro-antd/spin'
 import { NzTypographyModule } from 'ng-zorro-antd/typography'
 import { NzEmptyModule } from 'ng-zorro-antd/empty'
+import { NzModalModule } from 'ng-zorro-antd/modal'
 
 @NgModule({
   exports: [
@@ -24,6 +25,7 @@ import { NzEmptyModule } from 'ng-zorro-antd/empty'
     NzMessageModule,
     NzSpinModule,
     NzTypographyModule,
+    NzModalModule,
     
     FormsModule, 
     ReactiveFormsModule
