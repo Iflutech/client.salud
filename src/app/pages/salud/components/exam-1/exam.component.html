@@ -1,0 +1,93 @@
+<div class="exam-content">
+  <nz-steps [nzCurrent]="currentStep">
+    <nz-step nzTitle="Ficha" nzDescription="Datos Generales."></nz-step>
+    <nz-step nzTitle="Preguntas" nzDescription="Responder Preguntas."></nz-step>
+  </nz-steps>
+  <div class="steps-content">
+    <div class="steps-container">
+      @if(currentStep == 0) {
+        <nz-spin [nzSpinning]="isLoadingData">
+          <form nz-form [formGroup]="formHeaderData" class="personal-data-container" (submit)="nextStep(formHeaderData.value)">
+            <div>
+              <h3>Datos personales</h3>
+              <div class="personal-data-content">
+                <div class="dynamic-width-text">
+                  <p class="step-title">Nombre:</p>
+                  <input class="step-input" nz-input placeholder="Nombre" formControlName="name" type="text"/>
+                </div>
+                <div class="dynamic-width-text">
+                  <p class="step-title">Operación:</p>
+                  <input class="step-input" nz-input placeholder="Operación" formControlName="operation" type="text"/>
+                </div>
+                <div class="dynamic-width-text">
+                  <p class="step-title">Cargo:</p>
+                  <input class="step-input" nz-input placeholder="Cargo" formControlName="job" type="text"/>
+                </div>
+                <div class="dynamic-width-text">
+                  <p class="step-title">Sistema:</p>
+                  <input class="step-input" nz-input placeholder="Sistema" formControlName="system" type="text"/>
+                </div>
+              </div>
+            </div>
+            <div>
+              <h3>Ficha</h3>
+              <div class="personal-data-content">
+                <div class="dynamic-width-text">
+                  <p class="step-title">Turno:</p>
+                  <nz-form-control nzErrorTip="Ingrese el día de rotación">
+                    <nz-input-group>
+                      <nz-select class="step-select" formControlName="turnHour" nzPlaceHolder="Seleccione su turno">
+                        <nz-option nzValue="TD" nzLabel="Turno Dia"></nz-option>
+                        <nz-option nzValue="TN" nzLabel="Turno Noche"></nz-option>
+                      </nz-select>
+                    </nz-input-group>
+                  </nz-form-control>
+                </div>
+                <div class="dynamic-width-text">
+                  <p class="step-title">Día rotación:</p>
+                  <nz-form-item>
+                    <nz-form-control nzErrorTip="Ingrese el día de rotación">
+                      <nz-input-group>
+                        <input class="step-input" type="number" nz-input formControlName="rotationDay" placeholder="Día rotación" />
+                      </nz-input-group>
+                    </nz-form-control>
+                  </nz-form-item>
+                </div>
+              </div>
+            </div>
+            <div class="content-button">
+              <button nz-button nzType="default">
+                <span>Siguiente</span>
+              </button>
+            </div>
+          </form>
+        </nz-spin>
+      } @else {
+        <nz-spin [nzSpinning]="isLoadingData">
+          <div class="question-data-container">
+            @for (item of exams; track item) {
+              @if(item.category != '0') {
+                <h3 style="padding-top: 20px;">Categoría {{ item.category }}</h3>
+              }
+              @for (question of item.questions; track question) {
+                <div>
+                  <p class="step-title">{{ question.question }}</p>
+                  <nz-radio-group [(ngModel)]="question.selectAnswer">
+                    @for (response of question.responses; track response) {
+                      <p nz-radio [nzValue]="response.value">{{ response.name }}</p>
+                    }
+                  </nz-radio-group>
+                </div>
+              }
+            }
+          </div>
+          <div class="content-button-questions">
+            <button nz-button nzType="primary" (click)="registerExam()">
+              <span>Guardar Cambios</span>
+            </button>
+          </div>
+        </nz-spin>
+      }
+    </div>
+  </div>
+</div>

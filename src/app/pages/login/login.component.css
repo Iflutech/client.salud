@@ -1,0 +1,61 @@
+.login-image-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center; 
+}
+
+.login-image {
+  width: 100%;
+  max-width: 700px; 
+  padding: 0px 50px;
+}
+
+.login-logo {
+  max-height: 120px;
+  padding: 0px 0px 50px 0px;
+}
+
+.login-one-team {
+  max-height: 120px;
+  padding: 0px 0px 50px 0px;
+}
+
+.login-container {
+  display: flex; 
+  flex-direction: column;
+  justify-content: center;
+  align-items: center; 
+  background-color: #011623;
+}
+
+.login-form {
+  max-width: 300px;
+}
+
+.login-form-margin {
+  margin-bottom: 16px;
+}
+
+.login-form-forgot {
+  float: right;
+}
+
+.login-form-button {
+  width: 100%;
+}
+
+@media screen and (max-width: 1200px) {
+  .login-logo {
+    max-width: 200px;
+  }
+
+  .login-image {
+    padding: 0px 50px;
+    max-width: 100%;
+  }
+
+  .login-image-container {
+    display: none;
+  }
+}

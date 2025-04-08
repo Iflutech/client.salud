@@ -44,7 +44,7 @@ body {
   }
 }
 
-.dynamic-width-text {
+/* .dynamic-width-text {
   width: var(--input-width);
   text-align: left;
-}
+} */

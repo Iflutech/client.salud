@@ -1,0 +1,62 @@
+.steps-content {
+  margin-top: 16px;
+  border: 1px dashed #e9e9e9;
+  border-radius: 6px;
+  background-color: #fafafa;
+  text-align: left;
+  min-height: 40px;
+  overflow-y: auto;
+}
+
+.steps-container {
+  margin: 20px;
+}
+
+.step-title {
+  font-size: 12px; 
+  text-align: left;
+  font-weight: 600;
+  color: #0370AE;
+  margin-bottom: 5px;
+}
+
+.step-select {
+  width: 100%;
+}
+
+.personal-data-container {
+  gap: 25px;
+  display: flex;
+  max-width: 280px;
+  min-width: 200px;
+  flex-direction: column;
+  margin: auto;
+}
+
+.personal-data-content {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.content-button,
+.content-button-questions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.content-button-questions {
+  padding-top: 50px;
+}
+
+.question-data-container {
+  gap: 10px;
+  display: flex;
+  min-width: 200px;
+  flex-direction: column;
+  margin: auto;
+}
+
+[nz-radio] {
+  display: block;
+}

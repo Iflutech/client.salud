@@ -1,0 +1,147 @@
+.title {
+  position: relative;
+  padding-left: 11px;
+  margin-bottom: 25px;
+}
+
+.title:before {
+  position: absolute;
+  background: #0370AE;
+  content: "";
+  display: block;
+  width: 3px;
+  height: 80%;
+  left: 0;
+  top: 10%;
+}
+
+.stats-container {
+  display: grid; 
+  gap: 24px; 
+  grid-template-columns: repeat(3, 1fr); 
+  max-height: 100px;
+  overflow-x: hidden;
+  margin-bottom: 0px;
+  padding: 8px 8px 12px;
+}
+
+.stats-content {
+  border-radius: 5px;
+  padding: 10px 5px;
+  min-height: 54px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.1);
+  min-width: 180px;
+  background: #FFF;
+}
+
+.stats-content p {
+  text-align: center;
+  margin-bottom: 0px;
+}
+
+.stats-warning {
+  border-bottom: 5px solid #ECC94B;
+}
+
+.stats-title {
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.stats-subtitle {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.chart-title {
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.chart-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 15px 15px 15px;
+  border-radius: 5px;
+  box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.1);
+  background: #fff;
+}
+
+.stats-no-available-content {
+  box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.1);
+  height: 100%;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  border-radius: 5px;
+}
+
+.stats-no-available-title {
+  font-weight: 600;
+  font-size: 14px;
+  text-align: center;
+}
+
+.stats-no-available-list {
+  height: 250px;
+  overflow-x: auto;
+  flex-grow: 1;
+  padding: 0px 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+
+.list-emtpy {
+  justify-content: center;
+}
+
+.stats-no-available-list::-webkit-scrollbar {
+  width: 5px;
+  height: 8px;
+  background-color: #F3F5F9;
+  border: 1px solid #E4E8F1;
+}
+
+.stats-no-available-list::-webkit-scrollbar-thumb {
+  background: #C7CBCF
+}
+
+.stats-no-available-content-data {
+  display: flex; 
+  justify-content: space-between; 
+  font-size: 14px;
+  border-top: 1px dotted #F56565;
+  border-right: 1px dotted #F56565;
+  border-bottom: 1px dotted #F56565;
+  border-left: 12px solid #F56565;
+  border-radius: 5px;
+  padding: 15px;
+}
+
+.stats-no-available-data {
+  display: flex; 
+  gap: 80px;
+}
+
+.stats-no-available-name {
+  min-width: 250px;
+}
+
+.stats-no-available-dias {
+  text-align: end;
+}
+
+.stats-no-available-content-data p,
+.stats-no-available-dias p {
+  margin: 0px;
+}

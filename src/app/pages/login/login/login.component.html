@@ -1,0 +1,25 @@
+<div nz-row style="min-height: 100vh;">
+  <div class="login-image-container" nz-col nzXs="0" nzSm="0" nzMd="0" nzLg="12" nzXl="12">
+    <div style="display: flex; gap: 20px;">
+      <img class="login-logo" src="../../../../assets/iflutech.webp" alt="Logo Iflutech">
+      <!--<img class="login-one-team" src="../../../assets/oneteam.webp" alt="oneTeam logo"> -->
+    </div>
+    <img class="login-image" src="../../../../assets/login_image.svg" alt="Login" >
+  </div>
+  <div class="login-container" nz-col nzXs="24" nzSm="24" nzMd="24" nzLg="12" nzXl="12">
+    <h2 nz-typography style="color: white; padding-bottom: 20px;">Verificación de identidad</h2>
+    <form nz-form [formGroup]="verificationForm" class="login-form" (ngSubmit)="verification(verificationForm.value)">
+      <nz-form-item>
+        <nz-form-control nzErrorTip="Ingrese su DNI">
+          <nz-input-group nzPrefixIcon="user">
+            <input type="text" nz-input formControlName="dni" placeholder="DNI" />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+      <button nz-button class="login-form-button login-form-margin" 
+        [nzLoading]="isLoadingVerification" [nzType]="'primary'">
+        Verificar
+      </button>
+    </form>
+  </div>
+</div>

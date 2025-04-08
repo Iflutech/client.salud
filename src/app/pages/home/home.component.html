@@ -1,0 +1,54 @@
+<nz-layout class="app-layout">
+  <nz-sider 
+    class="menu-sidebar"
+    nzCollapsible
+    nzWidth="256px"
+    nzBreakpoint="md"
+    [(nzCollapsed)]="isCollapsed"
+    [nzTrigger]="null">
+    <div class="sidebar-logo">
+      <a href="/">
+        <img [ngClass]="isCollapsed ? 'logo-collapse logo' : 'logo'" src="../../../assets/logo.png" alt="logo">
+        <img class="logo-nombre" src="../../../assets/logo_nombre.png" alt="logo">
+      </a>
+    </div>
+    <ul nz-menu nzTheme="dark" nzMode="inline">
+      <li nz-menu-item nzMatchRouter>
+        <a routerLink="/home/dashboard">
+          <span nz-icon nzType="area-chart" nzTheme="outline"></span>
+          <span>Dashboard</span>
+        </a>
+      </li>
+    </ul>
+  </nz-sider>
+  <nz-layout [ngClass]="{ 'right-layout': isCollapsed == false, 'right-layout-small':  isCollapsed == true }">
+    <nz-header>
+      <div class="app-header">
+        <span class="header-trigger" (click)="isCollapsed = !isCollapsed">
+            <span class="trigger"
+               nz-icon
+               [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"
+            ></span>
+        </span>
+      </div>
+    </nz-header>
+    <nz-content style="overflow: auto;">
+      <div class="inner-content">
+        <router-outlet />
+      </div>
+    </nz-content>
+  </nz-layout>
+</nz-layout>
+<div class="user-options">
+  <a nz-dropdown nzTrigger="click" [nzDropdownMenu]="userOptions">
+    <nz-avatar [nzText]="initials" style="color:#f56a00; background-color:#fde3cf;"></nz-avatar>
+  </a>
+</div>
+
+<nz-dropdown-menu #userOptions="nzDropdownMenu">
+  <ul nz-menu>
+    <li nz-menu-item (click)="logOut()">
+      <span nz-icon nzType="export" nzTheme="outline"></span> Cerrar Sesión 
+    </li>
+  </ul>
+</nz-dropdown-menu>

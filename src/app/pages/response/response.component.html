@@ -1,0 +1,20 @@
+<div [ngClass]="{ 'approved': approved == true, 'disapproved':  approved == false }">
+  <img style="width: 180px; padding-bottom: 50px;" src="assets/iflutech.webp" alt="iflutech logo" />
+  <h3>Resultados</h3>
+  <div style="padding-bottom: 50px;">
+      <div class="result-content">
+        <label>Sr. Pedro Bustamante, usted se encuentra 
+          @if(approved) {
+            <span class="approved-text"> APTO</span>
+            <span> para conducir el día de hoy.</span>
+          } @else { 
+            <span class="disapproved-text">NO APTO</span>
+            <span> para conducir el día de hoy, por favor comuniquese con su supervisor al Cel. 964713565 o al correo </span>
+            <a href="mailto:supervision.quellaveco@iflutech.com">supervision.quellaveco&#64;iflutech.com</a>
+          }
+        </label>
+      </div>
+  </div>
+  <p>Se redireccionará al inicio en {{ segs }} segundos</p>
+</div>
+

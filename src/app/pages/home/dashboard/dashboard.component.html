@@ -1,0 +1,63 @@
+<div style="display: flex; justify-content: space-between; align-items: center;">
+  <h2 class="h2 title">Dashboard</h2>
+</div>
+<div class="stats-container">
+  <nz-spin [nzSpinning]="isLoadingGeneralStadistics">
+    <article class="stats-content stats-warning">
+      <p class="stats-title">Cant. No Aptos por Día</p>
+      <p class="stats-subtitle">{{ estadisticasGenerales.quantityDayNoApproved }} trabajadores</p>
+    </article>
+  </nz-spin>
+  <nz-spin [nzSpinning]="isLoadingGeneralStadistics">
+    <article class="stats-content stats-warning">
+      <p class="stats-title">Cant. No Aptos por Semana</p>
+      <p class="stats-subtitle">{{ estadisticasGenerales.quantityWeekNoApproved }} trabajadores</p>
+    </article>
+  </nz-spin>
+  <nz-spin [nzSpinning]="isLoadingGeneralStadistics">
+    <article class="stats-content stats-warning">
+      <p class="stats-title">Cant. No Aptos por Mes</p>
+      <p class="stats-subtitle">{{ estadisticasGenerales.quantityMonthNoApproved }} trabajadores</p>
+    </article>
+  </nz-spin>
+</div>
+<div nz-row [nzGutter]="[24, 24]" style="padding: 12px 8px 12px;">
+  <div nz-col nzXs="24" nzSm="24" nzMd="24" nzLg="12" nzXl="12">
+    <div class="chart-content">
+      <p class="chart-title">Cant. conductores habilitados por operación</p>
+      <canvas id="DayNoApproved" >{{ graphicApprovedByOrd }}</canvas>
+    </div>
+  </div>
+  <div nz-col nzXs="24" nzSm="24" nzMd="24" nzLg="12" nzXl="12">
+    <div class="chart-content">
+      <p class="chart-title">Observación más frecuente o repetiva</p>
+      <canvas id="FreqObservation" >{{ graphicmoreFreqObservation }}</canvas>
+    </div>
+  </div>
+</div>
+<div nz-row [nzGutter]="[24, 24]" style="padding: 12px 8px 12px;">
+  <div nz-col nzXs="24" nzSm="24" nzMd="24" nzLg="24" nzXl="24">
+    <div class="stats-no-available-content">
+      <p class="stats-no-available-title">Cant. de veces no apto por conductor por mes</p>
+      @if (isLoadingNoAvailable) {
+        <nz-spin [nzSpinning]="isLoadingNoAvailable" style="height: 100%;"></nz-spin>
+      } @else {
+        <div [ngClass]="workersFrequency.length == 0 ? 'stats-no-available-list list-emtpy' : 'stats-no-available-list'">
+          @for(item of workersFrequency; track item) {
+            <div class="stats-no-available-content-data">
+              <div class="stats-no-available-data">
+                <p class="stats-no-available-name">{{ item.name }}</p>
+                <p class="stats-no-available-operation">{{ item.operation }}</p>
+              </div>
+              <p class="stats-no-available-dias">
+                {{ item.quantity }} veces no apto
+              </p>
+            </div>
+          } @empty { 
+            <nz-empty></nz-empty>
+          }
+        </div>
+      }
+    </div>
+  </div>
+</div>

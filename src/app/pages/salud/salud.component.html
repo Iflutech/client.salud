@@ -1,0 +1,22 @@
+<nz-layout class="app-layout">
+  <nz-header>
+    <div class="app-header">
+      <img class="header-logo" src="assets/iflutech.webp" alt="Iflutech logo">
+      <button class="button-container" nz-button nzType="text" nz-popconfirm nzPopconfirmPlacement="bottomRight"
+          nzPopconfirmTitle="Si sale se perderán todas las respuestas ingresadas ¿Está seguro de querer salir?" nzPopconfirmPlacement="bottom"
+          (nzOnConfirm)="confirm()">
+        <span class="button-icon" nz-icon nzType="logout" nzTheme="outline"></span>
+        <p class="button-text">Salir</p>
+      </button>
+    </div>
+  </nz-header>
+  <nz-content style="overflow: auto;">
+    <div class="inner-content">
+      @if (selectedExam == 2) {
+        <content-exam-1 (emitLogout)="logout()"></content-exam-1>
+      } @else {
+        <h1>cargando</h1>
+      }
+    </div>
+  </nz-content>
+</nz-layout>
