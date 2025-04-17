@@ -19,6 +19,12 @@
           <span>Dashboard</span>
         </a>
       </li>
+      <li nz-menu-item nzMatchRouter>
+        <a routerLink="/home/sheet-information">
+          <span nz-icon nzType="file-text" nzTheme="outline"></span>
+          <span>Ficha</span>
+        </a>
+      </li>
     </ul>
   </nz-sider>
   <nz-layout [ngClass]="{ 'right-layout': isCollapsed == false, 'right-layout-small':  isCollapsed == true }">

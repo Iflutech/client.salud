@@ -1,0 +1,63 @@
+<nz-breadcrumb [nzAutoGenerate]="true"></nz-breadcrumb>
+<div class="detail-content-title">
+  <span class="detail-container-title">
+    <span class="detail-icon" nz-icon nzType="arrow-left" nzTheme="outline" (click)="goBack()"></span>
+    <h2 class="h2 detail-title">Detalle Ficha</h2>
+    <div class="detail-status">
+      @if(data.state == 'A') {
+        <nz-tag [nzColor]="'green'">Apto</nz-tag>
+      } @else if (data.state == 'E'){
+        <nz-tag [nzColor]="'red'">No Apto</nz-tag>
+      } 
+    </div>
+  </span>
+</div>
+<nz-spin [nzSpinning]="isLoadingDetail">
+  <div class="detail-container">
+    <div nz-row>
+      <div nz-col nzXs="24" nzSm="24" nzMd="24" nzLg="6" nzXl="6" class="detail-column">
+        <nz-segmented class="detail-segment" [nzOptions]="options" (nzValueChange)="handleIndexChange($event)"></nz-segmented>
+        @if(showSegment == 0) {
+          <h5 nz-typography>Fecha:</h5>
+          <span nz-typography>{{ data.header.date }}</span>
+          <h5 nz-typography>Examen:</h5>
+          <span nz-typography>{{ data.header.exam }}</span>
+          <h5 nz-typography>Tipo Examen:</h5>
+          <span nz-typography>{{ data.header.typeExam }}</span>
+        } @else {
+          <h5 nz-typography>Conductor:</h5>
+          <span nz-typography>{{ data.header.driver }}</span>
+          <h5 nz-typography>Cargo:</h5>
+          <span nz-typography>{{ data.header.job }}</span>
+          <h5 nz-typography>Operación:</h5>
+          <span nz-typography>{{ data.header.operation }}</span>
+          <h5 nz-typography>Turno:</h5>
+          <span nz-typography>{{ data.header.workingHours }}</span>
+          <h5 nz-typography>Sistema:</h5>
+          <span nz-typography>{{ data.header.system }}</span>
+          <h5 nz-typography>Día rotación:</h5>
+          <span nz-typography>{{ data.header.rotationDay }}</span>
+        }
+      </div>
+      <div nz-col nzXs="24" nzSm="24" nzMd="24" nzLg="18" nzXl="18" class="detail-column">
+        <h3 nz-typography>Preguntas y respuestas</h3>
+        
+        <div style="height: calc(100vh - 300px); overflow-y: scroll;">
+          @for(item of data.detail; track item) {
+            <div class="question-answer-container">
+              <span>{{ item.question }}</span>
+              <nz-list nzBordered nzSize="small">
+                @for(answer of item.answer; track answer) {
+                  <nz-list-item [class.question-answer-select]="answer.isSelected">{{ answer.answer }}</nz-list-item>
+                }
+              </nz-list>
+            </div>
+          }
+        </div>
+        
+
+      </div>
+    </div>
+  </div>
+  
+</nz-spin>

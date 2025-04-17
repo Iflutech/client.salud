@@ -38,6 +38,10 @@ body {
   color: rgba(0,0,0,1);
 }
 
+.ant-list-item {
+  padding: 0px 16px !important;
+}
+
 @media screen and (max-width: 992px) {
   .ant-picker-calendar-full .ant-picker-panel .ant-picker-calendar-date-content {
     height: 86px;

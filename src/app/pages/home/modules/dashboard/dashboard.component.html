@@ -1,6 +1,9 @@
 <div style="display: flex; justify-content: space-between; align-items: center;">
   <h2 class="h2 title">Dashboard</h2>
-  <button nz-button [nzType]="'primary'" (click)="obtenerDatos()">Refrescar</button>
+  <button style="margin-bottom: 20px;" nz-button [nzType]="'default'" (click)="obtenerDatos()">
+    <span nz-icon nzType="sync" nzTheme="outline"></span>
+    Refrescar
+  </button>
 </div>
 <div class="stats-container">
   <nz-spin [nzSpinning]="isLoadingGeneralStadistics">
@@ -69,7 +72,7 @@
                 <p class="stats-no-available-quantity">
                   {{ item.quantity }} veces no apto
                 </p>
-                <span class="stats-no-available-data-option" nz-icon nzType="ellipsis" nzTheme="outline"></span>
+                <!-- <span class="stats-no-available-data-option" nz-icon nzType="ellipsis" nzTheme="outline"></span> -->
               </div>
             </div>
           } @empty { 

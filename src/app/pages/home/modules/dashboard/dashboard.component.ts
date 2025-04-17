@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core'
-import { SharedModule } from '../../../shared/shared.module'
+import { SharedModule } from '../../../../shared/shared.module'
 import { Chart } from 'chart.js/auto'
 
 @Component({
@@ -97,8 +97,6 @@ export class DashboardComponent implements OnInit {
         this.graphicApprovedByOrd.update()
       })
       
-      //this.graphicApprovedByOrd.update()
-
       this.moreFreqObservation.forEach((item: number) => {
         this.graphicmoreFreqObservation.data.datasets.forEach((dataset: any) => {
           dataset.data.push(item)

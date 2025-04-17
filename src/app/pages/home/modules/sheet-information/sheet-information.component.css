@@ -1,0 +1,35 @@
+.title {
+  position: relative;
+  padding-left: 11px;
+}
+
+.title:before {
+  position: absolute;
+  background: #0370AE;
+  content: "";
+  display: block;
+  width: 3px;
+  height: 80%;
+  left: 0;
+  top: 10%;
+}
+
+.filter-input-content {
+  padding-bottom: 15px;
+}
+
+.filter-text {
+  padding: 0px;
+  margin: 0px 0px 5px 0px;
+}
+
+.filter-button-content {
+  margin-top: 10px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.w-100 {
+  width: 100%;
+}

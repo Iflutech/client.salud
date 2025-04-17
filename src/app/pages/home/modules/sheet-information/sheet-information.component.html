@@ -1,0 +1,92 @@
+@if(outlet.isActivated == false) {
+  <div style="display: flex; justify-content: space-between; align-items: center;">
+    <h2 class="h2 title">Ficha</h2>
+    <div style="margin-bottom: 15px; display: flex; justify-content: center; gap: 10px;">
+      <button nz-button [nzType]="'default'"(click)="getSheetInformationData()">
+        <span nz-icon nzType="sync" nzTheme="outline"></span>
+        Refrescar
+      </button>
+      <button nz-button [nzType]="'primary'" (click)="openFilter()">
+        <span nz-icon nzType="filter" nzTheme="outline"></span>
+        Filtro
+      </button>
+    </div>
+  </div>
+  <nz-table
+    [nzData]="data.data"
+    [nzFrontPagination]="false"
+    [nzLoading]="isLoadingData"
+    [nzTotal]="totalElements"
+    [nzPageSize]="filter.size"
+    [nzPageIndex]="filter.page"
+    [nzScroll]="{ y: '550px' }"
+    [nzSize]="'middle'"
+    (nzQueryParams)="changeParameters($event)"
+  >
+    <thead>
+      <tr>
+        <th id="codSheet" nzColumnKey="codSheet" nzWidth="120px">Código</th>
+        <th id="date" nzColumnKey="date" nzWidth="140px">Fecha</th>
+        <th id="driver" nzColumnKey="driver" nzWidth="250px">Conductor</th>
+        <th id="operation" nzColumnKey="operation" nzWidth="150px">Operación</th>
+        <th id="exam" nzColumnKey="exam">Examen</th>
+        <th id="typeExam" nzColumnKey="typeExam" nzWidth="180px">Tipo Examen</th>
+        <th id="rotationDay" nzColumnKey="rotationDay" nzWidth="140px">Día Rotación</th>
+        <th id="state" nzColumnKey="state" nzWidth="100px">Estado</th>
+        <th id="actions" nzColumnKey="actions" nzWidth="100px">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for(item of data.data; track item.id) {
+        <tr>
+          <td>{{ item.codSheet }}</td>
+          <td>{{ item.date }}</td>
+          <td>{{ item.driver }}</td>
+          <td>{{ item.operation }}</td>
+          <td>{{ item.exam }}</td>
+          <td>{{ item.typeExam }}</td>
+          <td>{{ getOrdinalNumber(item.rotationDate) }}</td>
+          <td [nzAlign]="'center'">
+            @if(item.state == 'A') {
+              <nz-tag [nzColor]="'green'">Apto</nz-tag>
+            } @else {
+              <nz-tag [nzColor]="'red'">No Apto</nz-tag>
+            }
+          </td>
+          <td [nzAlign]="'center'">
+            <a nz-tooltip nzTooltipTitle="Ver Detalle" [routerLink]="['detail', item.id]">
+              <span nz-icon nzType="file-search" nzTheme="outline"></span>
+            </a>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </nz-table>
+}
+
+<nz-drawer [nzVisible]="isFilterOpen" nzSize="default" nzTitle="Filtro" [nzClosable]="true" (nzOnClose)="closeFilter()">
+  <ng-container *nzDrawerContent>
+    <div class="filter-input-content">
+      <p class="filter-text">Fecha (Rango)</p>
+      <nz-range-picker class="w-100" [(ngModel)]="date" (ngModelChange)="onChangeDate($event)"></nz-range-picker>
+    </div>
+    <div class="filter-input-content">
+      <p class="filter-text">Conductor</p>
+      <input nz-input placeholder="Conductor" [(ngModel)]="filter.driver" type="text" />
+    </div>
+    <div class="filter-input-content">
+      <p class="filter-text">Estado</p>
+      <nz-select class="w-100" [(ngModel)]="filter.state">
+        <nz-option nzValue="" nzLabel="Todos"></nz-option>
+        <nz-option nzValue="A" nzLabel="Aptos"></nz-option>
+        <nz-option nzValue="N" nzLabel="No Aptos"></nz-option>
+      </nz-select>
+    </div>
+    <div class="filter-button-content">
+      <button nzType="default" nz-button (click)="cleanFilter()">Limpiar Filtros</button>
+      <button nzType="primary" nz-button (click)="filterData()">Buscar</button>
+    </div>
+  </ng-container>
+</nz-drawer>
+
+<router-outlet #outlet="outlet"></router-outlet>
