@@ -1,0 +1,154 @@
+<div style="display: flex; justify-content: space-between; align-items: center;">
+	<h2 class="h2 title">Examenes</h2>
+	<div class="filter-container">
+		<button nz-button [nzType]="'default'" (click)="getExamInformationData()" [disabled]="isLoadingData">
+			<span nz-icon nzType="sync" nzTheme="outline"></span>
+			Refrescar
+		</button>
+		<button nz-button [nzType]="'default'" (click)="openRegister()" [disabled]="isLoadingData">
+			<span nz-icon nzType="plus" nzTheme="outline"></span>
+			Agregar
+		</button>
+		<button nz-button [nzType]="'primary'" (click)="openFilter()" [disabled]="isLoadingData">
+			<span nz-icon nzType="filter" nzTheme="outline"></span>
+			Filtro
+		</button>
+	</div>
+</div>
+<nz-table
+	[nzData]="data.data"
+	[nzFrontPagination]="false"
+	[nzLoading]="isLoadingData"
+	[nzTotal]="totalElements"
+	[nzPageSize]="filter.size"
+	[nzPageIndex]="filter.page"
+	[nzScroll]="{ y: '550px' }"
+	[nzSize]="'middle'"	
+	(nzQueryParams)="changeParameters($event)"
+>
+	<thead>
+		<tr>
+			<th id="exam" nzColumnKey="exam" nzWidth="240px">Examen</th>
+			<th id="examType" nzColumnKey="examType" nzWidth="130px">Tipo Examen</th>
+			<th id="approvedCriteria" nzColumnKey="approvedCriteria" nzWidth="380px">Criterio Aprobación</th>
+			<th id="examFile" nzColumnKey="examFile" nzWidth="90px">Archivo</th>
+			<th id="state" nzColumnKey="state" nzWidth="120px">Estado</th>
+			<th id="actions" nzColumnKey="actions" nzWidth="100px">Acciones</th>
+		</tr>
+	</thead>
+	<tbody>
+		@for(item of data.data; track item.id) {
+			<tr>
+				<td nzEllipsis>{{ item.exam }}</td>
+				<td>{{ item.examType }}</td>
+				<td nzEllipsis nzTableLayout="fixed" nz-tooltip [nzTooltipTitle]="item.approvedCriteria">{{ item.approvedCriteria }}</td>
+				<td nzEllipsis [nzAlign]="'center'">
+					<a href="{{ item.examFile }}" target="_blank">
+						<span nz-icon nzType="file-pdf" nzTheme="outline"></span> PDF
+					</a>
+			  </td>
+				<td [nzAlign]="'center'">
+					@if(item.state == 'A') {
+						<nz-tag class="state-tag" [nzColor]="'green'">Activado</nz-tag>
+					} @else if (item.state == 'D') {
+						<nz-tag class="state-tag" [nzColor]="'yellow'">Desactivado</nz-tag>
+					} @else if (item.state == 'P') {
+						<nz-tag class="state-tag" [nzColor]="'blue'">Pendiente</nz-tag>
+					} @else {
+						<nz-tag class="state-tag" [nzColor]="'red'">Eliminado</nz-tag>
+					}
+				</td>
+				<td [nzAlign]="'center'">
+					@if (item.state != 'E' && item.state != 'P') {
+						@if (item.state == 'A') {
+							<a nz-tooltip nzTooltipTitle="Desactivar">
+								<span nz-icon nzType="close" nzTheme="outline"></span>
+							</a>
+						} @else {
+							<a nz-tooltip nzTooltipTitle="Activar">
+								<span nz-icon nzType="check" nzTheme="outline"></span>
+							</a>
+						}
+						<nz-divider nzType="vertical"></nz-divider>
+						<a nz-tooltip nzTooltipTitle="Eliminar"
+							nz-popconfirm nzPopconfirmTitle="¿Está seguro de eliminar el examen seleccionado?" nzOkText="Eliminar" nzCancelText="Cancelar"
+							(nzOnConfirm)="handleDeleteExam(item.id)"
+						>
+							<span nz-icon nzType="delete" nzTheme="outline"></span>
+						</a>
+					}
+				</td>
+			</tr>
+		}
+	</tbody>
+</nz-table>
+
+<nz-drawer [nzVisible]="isFilterOpen" nzSize="default" nzTitle="Filtro" [nzClosable]="true" (nzOnClose)="closeFilter()">
+	<ng-container *nzDrawerContent>
+		<div class="filter-input-content">
+      <p class="filter-text">Examen</p>
+      <input nz-input placeholder="Examen" [(ngModel)]="filter.exam" type="text" />
+    </div>
+		<div class="filter-input-content">
+      <p class="filter-text">Tipo Examen</p>
+      <nz-select class="w-100" [(ngModel)]="filter.examType" nzPlaceHolder="Todos" [nzAllowClear]="true">
+        <nz-option nzValue="1" nzLabel="Opción Múltiple"></nz-option>
+        <nz-option nzValue="2" nzLabel="Si/No"></nz-option>
+      </nz-select>
+    </div>
+		<div class="filter-input-content">
+      <p class="filter-text">Estado</p>
+      <nz-select class="w-100" [(ngModel)]="filter.state" nzPlaceHolder="Todos" [nzAllowClear]="true">
+        <nz-option nzValue="A" nzLabel="Activado"></nz-option>
+        <nz-option nzValue="D" nzLabel="Desactivado"></nz-option>
+				<nz-option nzValue="E" nzLabel="Eliminado"></nz-option>
+				<nz-option nzValue="P" nzLabel="Pendiente"></nz-option>
+      </nz-select>
+    </div>
+		<div class="filter-button-content">
+			<button nzType="default" nz-button (click)="cleanFilter()">Limpiar Filtros</button>
+			<button nzType="primary" nz-button (click)="filterData()">Buscar</button>
+		</div>
+	</ng-container>
+</nz-drawer>
+
+<nz-drawer [nzVisible]="isRegisterOpen" nzSize="default" nzTitle="Registro" [nzClosable]="true" (nzOnClose)="closeRegister()">
+	<ng-container *nzDrawerContent>
+		<div class="filter-input-content">
+			<p class="filter-text">Examen</p>
+			<input nz-input placeholder="Examen" [(ngModel)]="registerData.exam" type="text" />
+		</div>
+		<div class="filter-input-content">
+			<p class="filter-text">Tipo examen</p>
+			<nz-select class="w-100" nzPlaceHolder="Seleccione un tipo de examen" [(ngModel)]="registerData.examType">
+        <nz-option nzValue="1" nzLabel="Opción Múltiple"></nz-option>
+        <nz-option nzValue="2" nzLabel="Si/No"></nz-option>
+      </nz-select>
+		</div>
+		<div class="filter-input-content">
+			<p class="filter-text">Criterio aprobación</p>
+			<nz-textarea-count [nzMaxCharacterCount]="150">
+				<textarea placeholder="Criterio de aprobación" rows="4" [(ngModel)]="registerData.approvedCriteria" nz-input></textarea>
+			</nz-textarea-count>
+		</div>
+		<div class="filter-input-content">
+			<p class="filter-text">Archivo examen</p>
+			<nz-upload
+			  class="w-100" 
+				nzType="drag"
+      	[nzMultiple]="false"
+				[(nzFileList)]="file"
+				[nzBeforeUpload]="beforeUpload"
+				[nzDisabled]="file.length != 0"
+    	>
+				<p class="ant-upload-drag-icon">
+      	  <span nz-icon nzType="inbox"></span>
+      	</p>
+      	<p class="ant-upload-text">Da click o arrastra el archivo</p>
+    	</nz-upload>
+		</div>
+		<div class="filter-button-content">
+			<button nzType="primary" nz-button (click)="handleRegisterExam()">Registrar</button>
+		</div>
+	</ng-container>
+</nz-drawer>

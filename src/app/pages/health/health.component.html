@@ -13,7 +13,7 @@
   <nz-content style="overflow: auto;">
     <div class="inner-content">
       @if (selectedExam == 2) {
-        <content-exam-1 (emitLogout)="logout()"></content-exam-1>
+        <content-exam-1 [sheetData]="userResponse" (emitLogout)="logout()"></content-exam-1>
       } @else {
         <h1>cargando</h1>
       }

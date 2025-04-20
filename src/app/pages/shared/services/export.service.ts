@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
-import writeXlsxFile from 'json-as-xlsx';
+import { Injectable } from '@angular/core'
+import writeXlsxFile from 'json-as-xlsx'
 
 @Injectable({
     providedIn: 'root'

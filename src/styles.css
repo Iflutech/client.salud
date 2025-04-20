@@ -42,6 +42,22 @@ body {
   padding: 0px 16px !important;
 }
 
+.ant-upload.ant-upload-drag .ant-upload {
+  padding: 5px 0 !important;
+}
+
+.ant-upload.ant-upload-drag p.ant-upload-drag-icon {
+  margin-bottom: 0px !important;
+}
+
+.ant-upload.ant-upload-drag p.ant-upload-drag-icon .anticon {
+  font-size: 24px;
+}
+
+.ant-upload.ant-upload-drag p.ant-upload-text {
+  font-size: 12px;
+}
+
 @media screen and (max-width: 992px) {
   .ant-picker-calendar-full .ant-picker-panel .ant-picker-calendar-date-content {
     height: 86px;

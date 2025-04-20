@@ -39,10 +39,10 @@ export class LoginAdminComponent {
     }
   }
   
-  loginService() {
+  loginService(): void {
     this.isLoadingLoading = true
     setTimeout(() => {
-      localStorage.setItem('token', 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwidHlwZSI6ImFkbWluIiwiYWRtaW4iOnRydWUsImlhdCI6MTc0MzU1ODgyMywiZXhwIjoxNzQ0OTY5NDIzfQ.cq50LkDL7WaPqgsZR1BK2bJBMnEsEWELkGEYuDBgEsg')
+      localStorage.setItem('token', 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwidHlwZSI6ImFkbWluIiwiYWRtaW4iOnRydWUsImlhdCI6MTc0MzU1ODgyMywiZXhwIjoxNzQ5NDk2OTQyM30.jMtQ8AKy_lqXWuZ3KtpytL9C9nJqpO7DpanWKSVUmBg')
       this.router.navigate(['/home/dashboard'])
       this.isLoadingLoading = false
     }, 1500)

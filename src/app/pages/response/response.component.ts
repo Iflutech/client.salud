@@ -1,13 +1,12 @@
 import { Component, OnInit } from '@angular/core'
 import { SharedModule } from '../../shared/shared.module'
-import { SaludModule } from '../salud/salud.module'
 import { Router } from '@angular/router'
 import countdown from 'countdown'
 
 @Component({
   selector: 'app-response',
   standalone: true,
-  imports: [SharedModule, SaludModule],
+  imports: [SharedModule],
   templateUrl: './response.component.html',
   styleUrl: './response.component.css'
 })

@@ -64,7 +64,7 @@ export class DashboardComponent implements OnInit {
     this.obtenerDatos()
   }
 
-  obtenerDatos() {
+  obtenerDatos(): void {
     this.isLoadingGeneralStadistics = true
     this.isLoadingNoAvailable = true
     setTimeout(() => {
@@ -196,13 +196,13 @@ export class DashboardComponent implements OnInit {
     }, 1500)
   }
 
-  getDaysUntilToday(date: Date = new Date()) {
-    const currentDay = date.getDate();
-    const days: string[] = [];
+  getDaysUntilToday(date: Date = new Date()): void {
+    const currentDay = date.getDate()
+    const days: string[] = []
   
     for (let i = 1; i <= currentDay; i++) {
-      const dayString = i.toString().padStart(2, '0');
-      days.push(dayString);
+      const dayString = i.toString().padStart(2, '0')
+      days.push(dayString)
     }
 
     this.daysOfMonth = days
@@ -301,19 +301,19 @@ export class DashboardComponent implements OnInit {
 
   showModal(type: number): void {
     if (type == 1)
-      this.isVisibleModalDay = true;
+      this.isVisibleModalDay = true
     else if (type == 2)
-      this.isVisibleModalMonth = true;
+      this.isVisibleModalMonth = true
     else 
-      this.isVisibleModalYear = true;
+      this.isVisibleModalYear = true
   }
 
   handleClose(type: number): void {
     if (type == 1)
-      this.isVisibleModalDay = false;
+      this.isVisibleModalDay = false
     else if (type == 2)
-      this.isVisibleModalMonth = false;
+      this.isVisibleModalMonth = false
     else 
-      this.isVisibleModalYear = false;
+      this.isVisibleModalYear = false
   }
 }

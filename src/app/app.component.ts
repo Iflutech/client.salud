@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { ExportService } from './pages/shared/services/export.service';
+import { Component } from '@angular/core'
+import { RouterOutlet } from '@angular/router'
+import { ExportService } from './pages/shared/services/export.service'
 
 @Component({
   selector: 'app-root',

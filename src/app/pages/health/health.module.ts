@@ -14,4 +14,4 @@ import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm'
     NzPopconfirmModule 
   ]
 })
-export class SaludModule { }
+export class HealthModule { }

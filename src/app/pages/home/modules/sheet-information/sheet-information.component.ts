@@ -2,7 +2,7 @@ import { Component } from '@angular/core'
 import { SharedModule } from '../../../../shared/shared.module'
 import { SheetInformationModule } from './sheet-information.module'
 import { RouterLink, RouterOutlet } from '@angular/router'
-import { FilterSheetInformation, SheetInformation } from '../../models/sheet-information.models'
+import { FilterSheetInformation, SheetInformationResponse } from '../../models/sheet-information.models'
 import { CommonUtil } from '../../../../shared/common.util'
 import { NzTableQueryParams } from 'ng-zorro-antd/table'
 
@@ -15,7 +15,7 @@ import { NzTableQueryParams } from 'ng-zorro-antd/table'
 })
 export class SheetInformationComponent {
   filter: FilterSheetInformation
-  data: SheetInformation
+  data: SheetInformationResponse
   totalElements: number
   isFilterOpen: boolean
   isLoadingData: boolean
@@ -26,7 +26,7 @@ export class SheetInformationComponent {
       initialDate: '',
       endDate: '',
       driver: '',
-      state: '',
+      state: null,
       page: 1,
       size: 15
     }
@@ -36,17 +36,17 @@ export class SheetInformationComponent {
     }
     this.totalElements = 0
     this.isFilterOpen = false
-    this.isLoadingData = false
+    this.isLoadingData = true
     this.date = []
   }
 
-  changeParameters(params: NzTableQueryParams) {
+  changeParameters(params: NzTableQueryParams): void {
     const { pageIndex } = params
     this.filter = { ...this.filter, page: pageIndex }
     this.getSheetInformationData()
   }
 
-  getSheetInformationData() {
+  getSheetInformationData(): void {
     this.isLoadingData = true
     setTimeout(() => {
       this.isLoadingData = false
@@ -62,7 +62,7 @@ export class SheetInformationComponent {
             exam: 'Cuestionario Berlin',
             typeExam: 'Opción múltiple',
             rotationDate: 2,
-            state: 'A'
+            state: 'S' // Suitable (Apto)
           },
           {
             id: '2',
@@ -73,7 +73,7 @@ export class SheetInformationComponent {
             exam: 'Escala de Somnolencia de Epworth',
             typeExam: 'Opción múltiple',
             rotationDate: 4,
-            state: 'A'
+            state: 'S'
           },
           {
             id: '3',
@@ -84,51 +84,51 @@ export class SheetInformationComponent {
             exam: 'Test STOP-BANG',
             typeExam: 'Si/No',
             rotationDate: 1,
-            state: 'N'
+            state: 'N' // No Suitable (No Apto)
           }
         ]
       }
       this.totalElements = this.data.totalElements
-    }, 1500);
+    }, 1500)
   }
 
-  filterData() {
+  filterData(): void {
     console.log(this.filter)
     this.closeFilter()
     this.getSheetInformationData()
   }
 
-  cleanFilter() {
+  cleanFilter(): void {
     this.reset()
     this.closeFilter()
     this.getSheetInformationData()
   }
 
-  openFilter() {
+  openFilter(): void {
     this.isFilterOpen = true
   }
 
-  closeFilter() {
+  closeFilter(): void {
     this.isFilterOpen = false
   }
 
-  onChangeDate(result: Date[]) {
+  onChangeDate(result: Date[]): void {
     this.filter.initialDate = CommonUtil.formatDateToService(result[0])
     this.filter.endDate = CommonUtil.formatDateToService(result[1])
   }
 
   getOrdinalNumber(rotationDay: number): string {
-    return CommonUtil.getOrdinalDay(rotationDay);
+    return CommonUtil.getOrdinalDay(rotationDay)
   }
 
-  reset() {
+  reset(): void {
     this.date = []
     this.filter = { 
       ...this.filter,
       initialDate: '',
       endDate: '',
       driver: '',
-      state: '',
+      state: null,
       page: 1  
     }
   }

@@ -1,6 +1,6 @@
 <div style="display: flex; justify-content: space-between; align-items: center;">
   <h2 class="h2 title">Dashboard</h2>
-  <button style="margin-bottom: 20px;" nz-button [nzType]="'default'" (click)="obtenerDatos()">
+  <button style="margin-bottom: 20px;" nz-button [nzType]="'default'" (click)="obtenerDatos()" [disabled]="isLoadingGeneralStadistics || isLoadingNoAvailable">
     <span nz-icon nzType="sync" nzTheme="outline"></span>
     Refrescar
   </button>

@@ -2,12 +2,12 @@ export interface FilterSheetInformation {
   initialDate: string,
   endDate: string,
   driver: string,
-  state: string,
+  state: string | null,
   page: number,
   size: number
 }
 
-export interface SheetInformation {
+export interface SheetInformationResponse {
   totalElements: number,
   data: SheetInformationData[]
 }

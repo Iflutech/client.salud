@@ -22,19 +22,30 @@
       <li nz-menu-item nzMatchRouter>
         <a routerLink="/home/sheet-information">
           <span nz-icon nzType="file-text" nzTheme="outline"></span>
-          <span>Ficha</span>
+          <span>Fichas</span>
+        </a>
+      </li>
+      <li nz-menu-item nzMatchRouter>
+        <a routerLink="/home/exam">
+          <span nz-icon nzType="file-text" nzTheme="outline"></span>
+          <span>Examenes</span>
         </a>
       </li>
     </ul>
   </nz-sider>
   <nz-layout [ngClass]="{ 'right-layout': isCollapsed == false, 'right-layout-small':  isCollapsed == true }">
-    <nz-header>
+    <nz-header [ngClass]="{ 'width-layout': isCollapsed == false, 'width-layout-small':  isCollapsed == true }">
       <div class="app-header">
         <span class="header-trigger" (click)="isCollapsed = !isCollapsed">
             <span class="trigger"
                nz-icon
                [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"
             ></span>
+        </span>
+        <span class="user-options">
+          <a nz-dropdown nzTrigger="click" [nzDropdownMenu]="userOptions">
+            <nz-avatar [nzText]="initials" style="color:#f56a00; background-color:#fde3cf;"></nz-avatar>
+          </a>
         </span>
       </div>
     </nz-header>
@@ -45,11 +56,6 @@
     </nz-content>
   </nz-layout>
 </nz-layout>
-<div class="user-options">
-  <a nz-dropdown nzTrigger="click" [nzDropdownMenu]="userOptions">
-    <nz-avatar [nzText]="initials" style="color:#f56a00; background-color:#fde3cf;"></nz-avatar>
-  </a>
-</div>
 
 <nz-dropdown-menu #userOptions="nzDropdownMenu">
   <ul nz-menu>

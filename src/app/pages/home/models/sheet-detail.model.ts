@@ -1,4 +1,4 @@
-export interface SheetDetail {
+export interface SheetDetailResponse {
   state: string,
   header: SheetData
   detail: DetailData[]

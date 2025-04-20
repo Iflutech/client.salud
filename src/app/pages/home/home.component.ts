@@ -1,8 +1,8 @@
-import { Component, OnInit } from "@angular/core";
-import { SharedModule } from "../../shared/shared.module";
-import { Router, RouterLink, RouterOutlet } from "@angular/router";
-import { NzMessageService } from "ng-zorro-antd/message";
-import { HomeModule } from "./home.module";
+import { Component, OnInit } from '@angular/core'
+import { SharedModule } from '../../shared/shared.module'
+import { Router, RouterLink, RouterOutlet } from '@angular/router'
+import { NzMessageService } from 'ng-zorro-antd/message'
+import { HomeModule } from './home.module'
 
 @Component({
   selector: 'app-home',
@@ -40,14 +40,14 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  tokenExpired() {
+  tokenExpired(): void {
     if (Math.floor((new Date).getTime() / 1000) >= this.decodeJwt.exp) {
       this.message.create('error', 'Su sesión a expirado, ingrese nuevamente')
       this.logOut()
     }
   }
 
-  logOut() {
+  logOut(): void {
     localStorage.removeItem('token')
     localStorage.removeItem('sheet_sequence')
     this.router.navigate(['/login'])

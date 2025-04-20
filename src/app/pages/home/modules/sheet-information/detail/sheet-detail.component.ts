@@ -3,7 +3,7 @@ import { Location } from '@angular/common'
 import { SharedModule } from '../../../../../shared/shared.module'
 import { ActivatedRoute } from '@angular/router'
 import { SheetDetailModule } from './sheet-detail.module'
-import { SheetDetail } from './sheet-detail.model'
+import { SheetDetailResponse } from '../../../models/sheet-detail.model'
 
 @Component({
   selector: 'detail-sheet',
@@ -13,7 +13,7 @@ import { SheetDetail } from './sheet-detail.model'
   styleUrl: './sheet-detail.component.css'
 })
 export class DetailSheetComponent implements OnInit {
-  data: SheetDetail
+  data: SheetDetailResponse
   isLoadingDetail: boolean
   showSegment: number
   sheetId: string
