@@ -39,10 +39,15 @@
 	<tbody>
 		@for(item of data.data; track item.id) {
 			<tr>
-				<td nzEllipsis>{{ item.exam }}</td>
+				<td>{{ item.exam }}</td>
 				<td>{{ item.examType }}</td>
-				<td nzEllipsis nzTableLayout="fixed" nz-tooltip [nzTooltipTitle]="item.approvedCriteria">{{ item.approvedCriteria }}</td>
-				<td nzEllipsis [nzAlign]="'center'">
+				<td #container nzEllipsis nzTableLayout="fixed" nz-tooltip [nzTooltipTrigger]="(criteria!.offsetWidth >= container.offsetWidth) == false ? null : 'hover'"
+					[nzTooltipTitle]="item.approvedCriteria">
+					<span #criteria>
+						{{ item.approvedCriteria }}
+					</span>
+				</td>
+				<td [nzAlign]="'center'">
 					<a href="{{ item.examFile }}" target="_blank">
 						<span nz-icon nzType="file-pdf" nzTheme="outline"></span> PDF
 					</a>

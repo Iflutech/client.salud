@@ -39,8 +39,20 @@
       @for(item of data.data; track item.id) {
         <tr>
           <td>{{ item.date }}</td>
-          <td nzEllipsis nzTableLayout="fixed">{{ item.exam }}</td>
-          <td nzEllipsis nzTableLayout="fixed">{{ item.driver }}</td>
+          <td #containerExam nzEllipsis nzTableLayout="fixed" nz-tooltip
+            [nzTooltipTrigger]="(exam!.offsetWidth >= containerExam.offsetWidth) == false ? null : 'hover'"
+            [nzTooltipTitle]="item.exam">
+            <span #exam>
+              {{ item.exam }}
+            </span>
+          </td>
+          <td #containerDriver nzEllipsis nzTableLayout="fixed" nz-tooltip
+          [nzTooltipTrigger]="(driver!.offsetWidth >= containerDriver.offsetWidth) == false ? null : 'hover'"
+            [nzTooltipTitle]="item.driver">
+            <span #driver>
+              {{ item.driver }}
+            </span>
+          </td>
           <td>{{ item.operation }}</td>
           <td>{{ item.typeExam }}</td>
           <td>{{ getOrdinalNumber(item.rotationDate) }}</td>
