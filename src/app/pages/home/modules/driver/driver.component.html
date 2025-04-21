@@ -1,0 +1,96 @@
+<div style="display: flex; justify-content: space-between; align-items: center;">
+	<h2 class="h2 title">Conductores</h2>
+	<div class="filter-container">
+		<button nz-button [nzType]="'default'" (click)="getDriverData()" [disabled]="isLoadingData">
+			<span nz-icon nzType="sync" nzTheme="outline"></span>
+			Refrescar
+		</button>
+		<button nz-button [nzType]="'default'" [disabled]="isLoadingData">
+			<span nz-icon nzType="plus" nzTheme="outline"></span>
+			Agregar
+		</button>
+    <button nz-button [nzType]="'default'" [disabled]="isLoadingData">
+			<span nz-icon nzType="file-excel" nzTheme="outline"></span>
+			Exportar
+		</button>
+		<button nz-button [nzType]="'primary'" [disabled]="isLoadingData">
+			<span nz-icon nzType="filter" nzTheme="outline"></span>
+			Filtro
+		</button>
+	</div>
+</div>
+<nz-table
+  [nzData]="data.data"
+  [nzFrontPagination]="false"
+  [nzLoading]="isLoadingData"
+  [nzTotal]="totalElements"
+  [nzPageSize]="filter.size"
+  [nzPageIndex]="filter.page"
+  [nzScroll]="{ y: '550px' }"
+  [nzSize]="'middle'"
+  (nzQueryParams)="changeParameters($event)"
+>
+  <thead>
+    <tr>
+      <th id="name" nzColumnKey="name" nzWidth="200px">Nombre</th>
+      <th id="lastName" nzColumnKey="lastName" nzWidth="200px">Apellido</th>
+      <th id="job" nzColumnKey="job" nzWidth="280px">Cargo</th>
+      <th id="operation" nzColumnKey="operation" nzWidth="100px">Operación</th>
+      <th id="state" nzColumnKey="state" nzWidth="100px">Estado</th>
+      <th id="actions" nzColumnKey="actions" nzWidth="140px">Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for(item of data.data; track item.id) {
+      <tr>
+        <td>{{ item.name }}</td>
+        <td>{{ item.lastName }}</td>
+        <td #containerJob nzEllipsis nzTableLayout="fixed" nz-tooltip
+          [nzTooltipTrigger]="(job!.offsetWidth >= containerJob.offsetWidth) == false ? null : 'hover'"
+          [nzTooltipTitle]="item.job">
+          <span #job>
+            {{ item.job }}
+          </span>
+        </td>
+        <td>{{ item.operation }}</td>
+        <td [nzAlign]="'center'">
+          @if(item.state == 'A') {
+						<nz-tag class="state-tag" [nzColor]="'green'">Activado</nz-tag>
+					} @else if (item.state == 'D') {
+						<nz-tag class="state-tag" [nzColor]="'yellow'">Desactivado</nz-tag>
+					} @else {
+						<nz-tag class="state-tag" [nzColor]="'red'">Eliminado</nz-tag>
+					}
+        </td>
+        <td [nzAlign]="'center'">
+          <a nz-tooltip nzTooltipTitle="Detalle">
+            <span nz-icon nzType="search" nzTheme="outline"></span>
+          </a>
+          @if (item.state != 'E' && item.state != 'P') {
+            <nz-divider nzType="vertical"></nz-divider>
+            <a nz-tooltip nzTooltipTitle="Editar">
+              <span nz-icon nzType="edit" nzTheme="outline"></span>
+            </a>
+            <nz-divider nzType="vertical"></nz-divider>
+            @if (item.state == 'A') {
+							<a nz-tooltip nzTooltipTitle="Desactivar">
+								<span nz-icon nzType="close" nzTheme="outline"></span>
+							</a>
+						} @else {
+							<a nz-tooltip nzTooltipTitle="Activar">
+								<span nz-icon nzType="check" nzTheme="outline"></span>
+							</a>
+						}
+            <nz-divider nzType="vertical"></nz-divider>
+						<a nz-tooltip nzTooltipTitle="Eliminar"
+							nz-popconfirm nzPopconfirmTitle="¿Está seguro de eliminar el conductor seleccionado?" nzOkText="Eliminar" nzCancelText="Cancelar"
+							(nzOnConfirm)="handleDeleteDriver(item.id)"
+						>
+							<span nz-icon nzType="delete" nzTheme="outline"></span>
+						</a>
+          }
+        </td>
+      </tr>
+    }
+  </tbody>
+</nz-table>

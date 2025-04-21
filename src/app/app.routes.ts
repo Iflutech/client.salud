@@ -9,6 +9,7 @@ import { DashboardComponent } from './pages/home/modules/dashboard/dashboard.com
 import { SheetInformationComponent } from './pages/home/modules/sheet-information/sheet-information.component'
 import { DetailSheetComponent } from './pages/home/modules/sheet-information/detail/sheet-detail.component'
 import { ExamComponent } from './pages/home/modules/exam/exam.component'
+import { DriverComponent } from './pages/home/modules/driver/driver.component'
 
 export const routes: Routes = [
   { path: '', component: HealthComponent, canActivate: [AuthSheetGuard] },
@@ -21,7 +22,8 @@ export const routes: Routes = [
           { path: 'detail/:id', component: DetailSheetComponent, data: { breadcrumb: 'Detalle' } }
         ]
       },
-      { path: 'exam', component: ExamComponent, data: { breadcrumb: 'Exam' } }
+      { path: 'exam', component: ExamComponent, data: { breadcrumb: 'Examen' } },
+      { path: 'driver', component: DriverComponent, data: { breadcrumb: 'Conductor' } }
     ]
   },
   { path: 'response', component: ResponseComponent, canActivate: [AuthSheetGuard] },
